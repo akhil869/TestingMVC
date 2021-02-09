@@ -21,6 +21,7 @@ namespace MobileMVCShope.Controllers
         }
         public ActionResult InsertMobile()
         {
+            //added insertmobile action
             return View();
         }
         public ActionResult EditMobile(int id)
