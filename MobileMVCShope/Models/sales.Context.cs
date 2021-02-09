@@ -13,10 +13,10 @@ namespace MobileMVCShope.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class testEntities1 : DbContext
+    public partial class dotnetEntities1 : DbContext
     {
-        public testEntities1()
-            : base("name=testEntities1")
+        public dotnetEntities1()
+            : base("name=dotnetEntities1")
         {
         }
     
@@ -25,6 +25,7 @@ namespace MobileMVCShope.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<mobile> mobiles { get; set; }
         public virtual DbSet<sale> sales { get; set; }
     }
 }

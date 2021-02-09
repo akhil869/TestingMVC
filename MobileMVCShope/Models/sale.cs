@@ -14,10 +14,12 @@ namespace MobileMVCShope.Models
     
     public partial class sale
     {
-        public int id { get; set; }
+        public int sale_id { get; set; }
         public Nullable<int> orderqty { get; set; }
-        public string ordername { get; set; }
-        public Nullable<int> price { get; set; }
-        public string location { get; set; }
+        public Nullable<int> order_number { get; set; }
+        public string order_name { get; set; }
+        public Nullable<int> mobile_id { get; set; }
+    
+        public virtual mobile mobile { get; set; }
     }
 }

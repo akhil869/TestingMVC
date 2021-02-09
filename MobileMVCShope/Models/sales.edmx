@@ -4,52 +4,113 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dotnetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mobile">
+          <Key>
+            <PropertyRef Name="mobile_id" />
+          </Key>
+          <Property Name="mobile_id" Type="int" Nullable="false" />
+          <Property Name="mobile_number" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="sales">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="sale_id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="sale_id" Type="int" Nullable="false" />
           <Property Name="orderqty" Type="int" />
-          <Property Name="ordername" Type="varchar" MaxLength="30" />
-          <Property Name="price" Type="int" />
-          <Property Name="location" Type="varchar" MaxLength="30" />
+          <Property Name="order_number" Type="int" />
+          <Property Name="order_name" Type="varchar" MaxLength="20" />
+          <Property Name="mobile_id" Type="int" />
         </EntityType>
-        <EntityContainer Name="testModelStoreContainer">
+        <Association Name="FK__sales__mobile_id__276EDEB3">
+          <End Role="mobile" Type="Self.mobile" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mobile">
+              <PropertyRef Name="mobile_id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="mobile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dotnetModelStoreContainer">
+          <EntitySet Name="mobile" EntityType="Self.mobile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__sales__mobile_id__276EDEB3" Association="Self.FK__sales__mobile_id__276EDEB3">
+            <End Role="mobile" EntitySet="mobile" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="dotnetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mobile">
+          <Key>
+            <PropertyRef Name="mobile_id" />
+          </Key>
+          <Property Name="mobile_id" Type="Int32" Nullable="false" />
+          <Property Name="mobile_number" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__mobile_id__276EDEB3" FromRole="mobile" ToRole="sales" />
+        </EntityType>
         <EntityType Name="sale">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="sale_id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sale_id" Type="Int32" Nullable="false" />
           <Property Name="orderqty" Type="Int32" />
-          <Property Name="ordername" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Int32" />
-          <Property Name="location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="order_number" Type="Int32" />
+          <Property Name="order_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_id" Type="Int32" />
+          <NavigationProperty Name="mobile" Relationship="Self.FK__sales__mobile_id__276EDEB3" FromRole="sales" ToRole="mobile" />
         </EntityType>
-        <EntityContainer Name="testEntities1" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK__sales__mobile_id__276EDEB3">
+          <End Role="mobile" Type="Self.mobile" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mobile">
+              <PropertyRef Name="mobile_id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="mobile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dotnetEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mobiles" EntityType="Self.mobile" />
           <EntitySet Name="sales" EntityType="Self.sale" />
+          <AssociationSet Name="FK__sales__mobile_id__276EDEB3" Association="Self.FK__sales__mobile_id__276EDEB3">
+            <End Role="mobile" EntitySet="mobiles" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities1">
+        <EntityContainerMapping StorageEntityContainer="dotnetModelStoreContainer" CdmEntityContainer="dotnetEntities1">
+          <EntitySetMapping Name="mobiles">
+            <EntityTypeMapping TypeName="dotnetModel.mobile">
+              <MappingFragment StoreEntitySet="mobile">
+                <ScalarProperty Name="mobile_id" ColumnName="mobile_id" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sales">
-            <EntityTypeMapping TypeName="testModel.sale">
+            <EntityTypeMapping TypeName="dotnetModel.sale">
               <MappingFragment StoreEntitySet="sales">
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
                 <ScalarProperty Name="orderqty" ColumnName="orderqty" />
-                <ScalarProperty Name="ordername" ColumnName="ordername" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="order_name" ColumnName="order_name" />
+                <ScalarProperty Name="mobile_id" ColumnName="mobile_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
