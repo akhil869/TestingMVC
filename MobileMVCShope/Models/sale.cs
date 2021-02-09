@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MobileMVCShope
+namespace MobileMVCShope.Models
 {
     using System;
     using System.Collections.Generic;

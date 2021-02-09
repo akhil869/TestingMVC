@@ -33,7 +33,7 @@
           <Property Name="price" Type="Int32" />
           <Property Name="location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="testEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="testEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sales" EntityType="Self.sale" />
         </EntityContainer>
       </Schema>
@@ -41,7 +41,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities">
+        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities1">
           <EntitySetMapping Name="sales">
             <EntityTypeMapping TypeName="testModel.sale">
               <MappingFragment StoreEntitySet="sales">
