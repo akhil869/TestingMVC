@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MobileMVCShope.Models.tblMobile>
+
+@{
+    ViewBag.Title = "ShowMobiles";
+}
+
+<h2>ShowMobiles</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(mobileobj => mobileobj.Id)</th>
+                    <th>@Html.DisplayNameFor(mobileobj => mobileobj.Mobile)</th>
+                    <th>@Html.DisplayNameFor(mobileobj => mobileobj.Model)</th>
+                    <th>@Html.DisplayNameFor(mobileobj => mobileobj.Price)</th>
+                    <th>@Html.DisplayNameFor(mobileobj => mobileobj.Description)</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(obj => item.Id)</td>
+                        <td>@Html.DisplayFor(obj => item.Mobile)</td>
+                        <td>@Html.DisplayFor(obj => item.Model)</td>
+                        <td>@Html.DisplayFor(obj => item.Price)</td>
+                        <td>@Html.DisplayFor(obj => item.Description)</td>
+                        <td>@Html.ActionLink("Edit", "EditMobile", new { id = item.Id })</td>
+                        <td>@Html.ActionLink("Delete", "DeleteMobile", new { id = item.Id })</td>
+                    </tr>
+                }
+            </tbody>           
+        </table>
+    </div>
+</div>
+
